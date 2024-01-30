@@ -1,9 +1,12 @@
+mod order;
+mod user;
+
 use crate::order::Order;
+use crate::user::User;
 
 use std::time::SystemTime;
 
-mod order;
 fn main() {
-    println!("Hello, world!");
-    let _me = Order{price: 100f64, timestamp: SystemTime::now()};
+    let _user = User{name: String::from("kahshiuh"), balance:100f64, order:vec![], orderType: Or};
+    let _me = Order{user_id: String::from("Hello"), is_fufilled: false, price: 100f64, timestamp: SystemTime::now()};
 }
