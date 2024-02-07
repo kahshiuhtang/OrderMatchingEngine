@@ -4,6 +4,7 @@ pub enum OrderType{
 }
 pub struct Order {
     pub user_id: String,
+    pub order_id: String, 
     pub is_fufilled: bool,
     pub fufiller_id: Option<String>,
     pub price: f64,

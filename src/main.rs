@@ -1,6 +1,7 @@
 mod market;
 mod order;
 mod user;
+mod helper;
 
 use crate::user::User;
 use order::{OrderType, Order};
@@ -40,6 +41,7 @@ fn main() {
     };
     let _me = Order {
         user_id: String::from("Hello"),
+        order_id: String::from("aksdhkasd"),
         is_fufilled: false,
         price: 100f64,
         timestamp: SystemTime::now(),

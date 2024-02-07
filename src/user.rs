@@ -1,5 +1,7 @@
 use crate::market::Stock;
 use crate::order::{Order, OrderType};
+use crate::helper::generate_random_string;
+
 use std::time::SystemTime;
 
 pub struct User<'a> {
@@ -11,15 +13,15 @@ pub struct User<'a> {
 
 trait UserInterface {
     fn create_order(&self, price: f64, amount:i64, stock_id: String, order_type: OrderType, is_buy:bool) -> Order;
-    fn search_market();
+    fn search_market(&self, stock_id: String);
     fn view_order();
 }
 impl <'a> UserInterface for User<'a>{
     fn create_order(&self, price: f64, amount:i64, stock_id: String, order_type: OrderType, is_buy:bool) -> Order{
-        let order = Order{user_id: self.user_id.clone(), is_fufilled: false, fufiller_id: None, price: price, amount: amount, timestamp:SystemTime::now(), order_type: order_type, is_buy: is_buy};
+        let order = Order{order_id: generate_random_string(), user_id: self.user_id.clone(), is_fufilled: false, fufiller_id: None, price: price, amount: amount, timestamp:SystemTime::now(), order_type: order_type, is_buy: is_buy};
         return order;
     }
-    fn search_market(){
+    fn search_market(&self, stock_id: String){
 
     }
     fn view_order(){
