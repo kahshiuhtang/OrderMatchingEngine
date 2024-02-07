@@ -11,7 +11,27 @@ use std::time::SystemTime;
 extern crate argparse;
 
 use argparse::{ArgumentParser, Store, StoreConst, StoreFalse, StoreTrue};
+use yew::prelude::*;
+use yew::Renderer;
 
+#[function_component]
+fn App() -> Html {
+    let counter = use_state(|| 0);
+    let onclick = {
+        let counter = counter.clone();
+        move |_| {
+            let value = *counter + 1;
+            counter.set(value);
+        }
+    };
+
+    html! {
+        <div>
+            <button {onclick}>{ "+1" }</button>
+            <p>{ *counter }</p>
+        </div>
+    }
+}
 fn main() {
     let _user = User {
         name: String::from("kahshiuh"),
@@ -46,10 +66,13 @@ fn main() {
             StoreTrue,
             "Help, display options and arguments",
         );
-
         parser.parse_args_or_exit();
+    }
+    if is_help {
+        println!();
     }
     if is_verbose {
         println!("HELLO")
     }
+    yew::Renderer::<App>::new().render();
 }
