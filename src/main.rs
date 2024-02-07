@@ -2,15 +2,14 @@ mod market;
 mod order;
 mod user;
 
-use crate::order::Order;
 use crate::user::User;
-use order::{OrderType, OrderTypeContainer};
+use order::{OrderType, Order};
 
 use std::time::SystemTime;
 
 extern crate argparse;
 
-use argparse::{ArgumentParser, Store, StoreConst, StoreFalse, StoreTrue};
+use argparse::{ArgumentParser, StoreTrue};
 use yew::prelude::*;
 use yew::Renderer;
 
@@ -36,6 +35,7 @@ fn main() {
     let _user = User {
         name: String::from("kahshiuh"),
         balance: 100f64,
+        user_id: String::from("12345"),
         order: vec![],
     };
     let _me = Order {
@@ -43,10 +43,10 @@ fn main() {
         is_fufilled: false,
         price: 100f64,
         timestamp: SystemTime::now(),
-        order_type: OrderTypeContainer {
-            order_type: OrderType::Market,
-            is_buy: true,
-        },
+        order_type: OrderType::Market,
+        amount: 10,
+        fufiller_id: None,
+        is_buy: true,
     };
     struct Options {
         verbose: bool,

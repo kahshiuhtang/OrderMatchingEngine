@@ -7,24 +7,25 @@ pub struct Stock {
 
 pub struct Market {
     sentiment: MarketSentiment,
+    sentiment_change_percent: f64,
     stocks: [Stock],
 }
 
 pub enum MarketSentiment {
-    SUPER_BULLISH,
-    BULLISH,
-    NEUTRAL,
-    BEARISH,
-    SUPER_BEARISH,
+    SuperBullish,
+    Bullish,
+    Neutral,
+    Bearish,
+    SuperBearish,
 }
 impl MarketSentiment {
     fn value(&self) -> f64 {
         match *self {
-            MarketSentiment::SUPER_BULLISH => 3.5,
-            MarketSentiment::BULLISH => 1.25,
-            MarketSentiment::NEUTRAL => 0.0,
-            MarketSentiment::BEARISH => -1.25,
-            MarketSentiment::SUPER_BEARISH => -3.5,
+            MarketSentiment::SuperBullish => 3.5,
+            MarketSentiment::Bullish => 1.25,
+            MarketSentiment::Neutral => 0.0,
+            MarketSentiment::Bearish => -1.25,
+            MarketSentiment::SuperBearish => -3.5,
         }
     }
 }

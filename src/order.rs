@@ -1,18 +1,15 @@
 use std::time::SystemTime;
-
-pub struct OrderTypeContainer {
-    pub order_type: OrderType,
-    pub is_buy: bool,
-}
-
-pub enum OrderType {
+pub enum OrderType{
     Market,
-    Limit,
 }
 pub struct Order {
     pub user_id: String,
     pub is_fufilled: bool,
+    pub fufiller_id: Option<String>,
     pub price: f64,
+    pub amount: i64,
     pub timestamp: SystemTime,
-    pub order_type: OrderTypeContainer,
+    pub order_type: OrderType,
+    pub is_buy: bool,
 }
+
