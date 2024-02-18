@@ -5,15 +5,16 @@ mod helper;
 
 use crate::user::User;
 use order::{OrderType, Order};
+use market::{Stock};
 
 use std::time::SystemTime;
 
 extern crate argparse;
 
 use argparse::{ArgumentParser, StoreTrue};
-use yew::prelude::*;
-use yew::Renderer;
-
+//use yew::prelude::*;
+//use yew::Renderer;
+/* 
 #[function_component]
 fn App() -> Html {
     let counter = use_state(|| 0);
@@ -32,6 +33,7 @@ fn App() -> Html {
         </div>
     }
 }
+*/
 fn main() {
     let _user = User {
         name: String::from("kahshiuh"),
@@ -76,5 +78,17 @@ fn main() {
     if is_verbose {
         println!("HELLO")
     }
-    yew::Renderer::<App>::new().render();
+    let mut s = Stock {stock_id: 111,
+        stock_price: 1.34,
+        open: 1.32,
+        close: -1.0,
+        stock_history: Vec::new(),};
+    let mut i = 0;
+    let mut curr_val:f64  = 100.0;
+    while i < 100{
+        curr_val = s.generate_data();
+        println!("{}", curr_val);
+        i += 1;
+    }
+    //yew::Renderer::<App>::new().render();
 }

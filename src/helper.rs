@@ -1,5 +1,6 @@
 use rand::{thread_rng, Rng};
 use rand::distributions::Alphanumeric;
+
 pub fn generate_random_string() -> String{
     
     const CHARSET: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\

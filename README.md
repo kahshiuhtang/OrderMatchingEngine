@@ -12,6 +12,7 @@ Use Cargo to install trunk. Also make sure the WASM build target is available
 $ cargo install trunk
 
 $ rustup target add wasm32-unknown-unknown
+
 ```
 ## Run
 ```bash
