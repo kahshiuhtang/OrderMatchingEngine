@@ -1,7 +1,8 @@
 use rand::Rng;
+use crate::helper::generate_random_string;
 
 pub struct Stock {
-    pub stock_id: i32,
+    pub stock_id: String,
     pub stock_price: f32,
     pub open: f32,
     pub close: f32,
@@ -11,8 +12,7 @@ pub struct Stock {
 pub struct Market {
     sentiment: MarketSentiment,
     sentiment_change_percent: f64,
-    stocks: [Stock],
-
+    stocks: Vec<Stock>,
 }
 
 pub enum MarketSentiment {
@@ -34,7 +34,13 @@ impl MarketSentiment {
     }
 }
 impl Market{
-
+    pub fn tick(){
+        
+    }
+    pub fn create_new_stock(&mut self){
+        let mut rng = rand::thread_rng();
+        self.stocks.push(Stock{stock_id:generate_random_string(), stock_price:rng.gen_range(10.0..401.0), open:0.0, close:0.0, stock_history:Vec::new()})
+    }
 }
 
 impl Stock{

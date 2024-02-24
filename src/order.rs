@@ -14,3 +14,7 @@ pub struct Order {
     pub is_buy: bool,
 }
 
+pub struct OrderBook{
+
+}
+
