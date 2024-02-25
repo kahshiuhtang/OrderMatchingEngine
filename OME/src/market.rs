@@ -4,8 +4,6 @@ use crate::helper::generate_random_string;
 pub struct Stock {
     pub stock_id: String,
     pub stock_price: f32,
-    pub open: f32,
-    pub close: f32,
     pub stock_history: Vec<f64>,
 }
 
@@ -34,12 +32,16 @@ impl MarketSentiment {
     }
 }
 impl Market{
-    pub fn tick(){
-        
+    pub fn tick(&mut self){
+        for stock in self.stocks.iter_mut() {
+            stock.generate_data();
+        }
     }
     pub fn create_new_stock(&mut self){
         let mut rng = rand::thread_rng();
-        self.stocks.push(Stock{stock_id:generate_random_string(), stock_price:rng.gen_range(10.0..401.0), open:0.0, close:0.0, stock_history:Vec::new()})
+        self.stocks.push(Stock{stock_id:generate_random_string(), 
+                                stock_price:rng.gen_range(10.0..401.0),
+                                stock_history:Vec::new()})
     }
 }
 
