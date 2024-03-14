@@ -16,11 +16,10 @@ $ rustup target add wasm32-unknown-unknown
 ```
 ## Run
 ```bash
-$ cargo build
 
-$ ./target/debug/order_matching_engine
+$ cargo watch -c -q -x run
 
-$ trunk serve
+$ trunk server --open --port 8081
 
 ```
 
