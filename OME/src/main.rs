@@ -41,15 +41,15 @@ fn main() {
         order: vec![],
     };
     let _me = Order {
+        stock_id: String::from("123"),
         user_id: String::from("Hello"),
         order_id: String::from("aksdhkasd"),
-        is_fufilled: false,
+        is_fulfilled: false,
         price: 100f64,
         timestamp: SystemTime::now(),
         order_type: OrderType::Market,
         amount: 10,
-        fufiller_id: None,
+        fulfiller_id: None,
         is_buy: true,
     };
-    //yew::Renderer::<App>::new().render();
 }
