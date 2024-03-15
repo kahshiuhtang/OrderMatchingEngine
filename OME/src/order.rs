@@ -70,27 +70,31 @@ impl OrderBook {
         }
     }
     fn insert_order(&mut self, order: Order) {
-        if order.is_buy {
-            let stock_order_map = self.order_mappings.get(&order.stock_id);
-            match stock_order_map {
-                Some(map) => {}
-                None => {
-                    let mut sell_orders = BinaryHeap::new();
-                    let mut buy_orders = BinaryHeap::new();
-                    match order.is_buy {
-                        true => buy_orders.push(order),
-                        false => sell_orders.push(order),
-                    }
-                    self.order_mappings.insert(
-                        String::from(order.stock_id.borrow()),
-                        StockOrders {
-                            sell_orders,
-                            buy_orders,
-                        },
-                    );
+        let stock_order_map = self.order_mappings.get_mut(&order.stock_id);
+        match stock_order_map {
+            Some(stock_order) => {
+                if order.is_buy {
+                    stock_order.buy_orders.push(order)
+                } else {
+                    stock_order.sell_orders.push(order)
                 }
             }
-        } else {
+            None => {
+                let stock_id_copy = String::from(&order.stock_id);
+                let mut sell_orders = BinaryHeap::new();
+                let mut buy_orders = BinaryHeap::new();
+                match order.is_buy {
+                    true => buy_orders.push(order),
+                    false => sell_orders.push(order),
+                }
+                self.order_mappings.insert(
+                    stock_id_copy,
+                    StockOrders {
+                        sell_orders,
+                        buy_orders,
+                    },
+                );
+            }
         }
     }
     pub fn find_matches() {}
