@@ -1,5 +1,5 @@
-use std::borrow::Borrow;
 use std::cmp::Ordering;
+use std::cmp::Reverse;
 use std::collections::{BinaryHeap, HashMap};
 use std::time::SystemTime;
 
@@ -15,7 +15,7 @@ pub struct Order {
     pub order_id: String,
     pub stock_id: String,
     pub user_id: String,
-    pub is_fulfilled: bool,
+    pub amount_fulfilled: i64,
     pub fulfiller_id: Option<String>,
     pub price: f64,
     pub amount: i64,
@@ -97,6 +97,50 @@ impl OrderBook {
             }
         }
     }
-    pub fn find_matches() {}
+    pub fn find_matches(&mut self) {
+        for (key, value) in &mut self.order_mappings {
+            // Want to take the highest buys and the lowest sells
+            // If they overlap, then we can match them
+            let mut highest_buy_orders: Vec<Order> = Vec::new();
+            let mut lowest_sell_orders: Vec<Order> = Vec::new();
+            let mut buy_price = -1.0;
+            let mut total_buy_amount = 0;
+            let mut sell_price = -1.0;
+            let mut total_sell_amount = 0;
+            while let Some(buy_order) = value.buy_orders.pop() {
+                if buy_price == -1f64 {
+                    buy_price = buy_order.price;
+                    total_buy_amount += buy_order.amount;
+                    highest_buy_orders.push(buy_order);
+                } else if buy_order.price == buy_price {
+                    total_buy_amount += buy_order.amount;
+                    highest_buy_orders.push(buy_order);
+                } else {
+                    break;
+                }
+            }
+            while let Some(sell_order) = value.sell_orders.pop() {
+                if sell_price == -1f64 {
+                    sell_price = sell_order.price;
+                    total_sell_amount += sell_order.amount;
+                    lowest_sell_orders.push(sell_order);
+                } else if sell_order.price == sell_price {
+                    total_sell_amount += sell_order.amount;
+                    lowest_sell_orders.push(sell_order);
+                } else {
+                    break;
+                }
+            }
+            if buy_price > sell_price {
+            } else {
+                while let Some(buy_order) = highest_buy_orders.pop() {
+                    value.buy_orders.push(buy_order)
+                }
+                while let Some(sell_order) = lowest_sell_orders.pop() {
+                    value.sell_orders.push(sell_order)
+                }
+            }
+        }
+    }
     pub fn ticker() {}
 }
