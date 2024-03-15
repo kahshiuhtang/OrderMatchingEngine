@@ -1,3 +1,4 @@
+use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::collections::{BinaryHeap, HashMap};
 use std::time::SystemTime;
@@ -70,20 +71,28 @@ impl OrderBook {
     }
     fn insert_order(&mut self, order: Order) {
         if order.is_buy {
-            if self.order_mappings.contains_key(&order.stock_id) {
-            } else {
-                self.order_mappings.insert(
-                    order.stock_id,
-                    StockOrders {
-                        sell_orders: BinaryHeap::new(),
-                        buy_orders: BinaryHeap::new(),
-                    },
-                );
+            let stock_order_map = self.order_mappings.get(&order.stock_id);
+            match stock_order_map {
+                Some(map) => {}
+                None => {
+                    let mut sell_orders = BinaryHeap::new();
+                    let mut buy_orders = BinaryHeap::new();
+                    match order.is_buy {
+                        true => buy_orders.push(order),
+                        false => sell_orders.push(order),
+                    }
+                    self.order_mappings.insert(
+                        String::from(order.stock_id.borrow()),
+                        StockOrders {
+                            sell_orders,
+                            buy_orders,
+                        },
+                    );
+                }
             }
         } else {
         }
     }
     pub fn find_matches() {}
-    pub fn match_order(order1: &mut Order, order2: &mut Order) {}
     pub fn ticker() {}
 }
